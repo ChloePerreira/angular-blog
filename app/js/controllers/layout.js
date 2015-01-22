@@ -1,8 +1,22 @@
 var homeControllerModule = angular.module('homeControllerModule', []);
 
-homeControllerModule.controller('homeController', ['$scope', '$http', function($scope, $http) {
+homeControllerModule.controller('homeController', ['$scope', '$http', 'apiService', function($scope, $http, apiService) {
   $scope.hello = "Hi";
-  $scope.posts = [
+  /*$http.get('http://localhost:3000/posts')*/
+  apiService.get('posts')
+    .success(function(data){
+      $scope.posts = data;
+    });
+
+  $scope.posts = [];
+  $scope.tags = [];
+  /*$http.get('http://localhost:3000/tags')*/
+  apiService.get('tags')
+    .success(function(data){
+      $scope.tags = data;
+    });
+
+  $scope.blah = [
     {
       "content": "Run biting sagittis elit cras nec vestibulum, tempus lick sleep on your keyboard stuck in a tree suscipit. Vestibulum judging you sleep in the sink eat the grass non non, zzz amet pellentesque tincidunt a. Iaculis purr rutrum claw faucibus sniff, nibh quis nunc feed me suspendisse vehicula toss the mousie. Sleep in the sink justo vestibulum ac hairball, tail flick jump eat faucibus enim ut purr iaculis. Zzz give me fish stuck in a tree jump on the table, in viverra rhoncus scratched sleep in the sink hiss stuck in a tree pharetra. Rutrum bat nam orci turpis sniff suspendisse, nibh rutrum nunc sagittis run orci turpis. Bat purr fluffy fur libero, attack lick adipiscing catnip sleep in the sink nunc.",
       "date": "2015-01-07T00:00:00.000Z",
@@ -26,7 +40,7 @@ homeControllerModule.controller('homeController', ['$scope', '$http', function($
     }
   ]
 
-  $scope.tags =
+  $scope.blahblah =
     [ 
       { "id": "1a", "name": "2cool4school" },
       { "id": "2b", "name": "kittycat" },
@@ -64,8 +78,17 @@ homeControllerModule.controller('homeController', ['$scope', '$http', function($
   
   $scope.newPost = {'title': '', 'content': '', 'tag_ids': []} 
   
-  $scope.submitNewPost = function(){ 
+  $scope.submitNewPost = function(){
     $scope.posts.push($scope.newPost);
-  }
+    apiService.postPost($scope.newPost);
+    /*$http.post('http://localhost:3000/posts',
+      {
+        post: {
+          title: $scope.newPost.title,
+          content: $scope.newPost.content
+        }
+       }
+      )*/
+    }
 }]);
 
