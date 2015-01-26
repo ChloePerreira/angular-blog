@@ -1,4 +1,10 @@
 <div ng-controller='postsController'>
-  <div ui-view='new'></div>
-  {{name}}
+<div class = search>Search: <input type='text' ng-model='search'/></div>
+<div class = search>Search by title: <input type='text' ng-model='search.title'/></div>
+
+ <span ng-repeat="post in posts | filter:search:strict"><a ui-sref='show({id: post.id})'><h2>{{post.title}}</h2></a> 
+   <br> {{post.date | date:'EEEE'}} <br><p>{{post.content}}</p>
+   <br> <small ng-repeat ='tag_id in post.tag_ids'><span ng-if = 'post.tag_ids.length> 0'> Tags: </span>{{getTagName(tag_id)}}</small><hr>
+ <div ng-repeat='tag_id in post.tag_ids'>{{getTagName(tag_id)}}</div></span>
+
 </div>

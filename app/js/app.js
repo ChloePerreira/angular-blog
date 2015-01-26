@@ -30,3 +30,5 @@ blahgApp.config(function($stateProvider, $urlRouterProvider) {
 
   $urlRouterProvider.otherwise('/');
 });
+
+/*something.somethingelse = nested route -> /something/somethingelse */

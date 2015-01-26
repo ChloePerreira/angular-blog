@@ -1,14 +1,29 @@
 var postsControllerModule = angular.module('postsControllerModule', []);
 
-postsControllerModule.controller('postsController', ['$scope', '$http', function($scope, $http) {
+postsControllerModule.controller('postsController', ['$scope', '$http', 'apiService', function($scope, $http, apiService) {
   $scope.name = 'posts controller';
+
+  apiService.get('posts')
+  .success(function(data){
+      $scope.posts = data;
+  });
+ 
+   $scope.posts = [];
+   $scope.tags = [];
+   /*$http.get('http://localhost:3000/tags')*/
+   apiService.get('tags')
+     .success(function(data){
+       $scope.tags = data;
+     });
 }]);
 
-postsControllerModule.controller('newPostController', ['$scope', '$http', function($scope, $http) {
-  $scope.name = 'new controller';
-}]);
-
-postsControllerModule.controller('postController', ['$scope', '$http', '$stateParams', function($scope, $http, $stateParams) {
+postsControllerModule.controller('postController', ['$scope', '$http', '$stateParams', 'apiService', function($scope, $http, $stateParams, apiService) {
   $scope.postName = 'this is post view';
   $scope.id = $stateParams.id;
+  apiService.get('posts/'+$scope.id)
+    .success(function(data){
+      $scope.post= data;
+    });
+
 }]);
+

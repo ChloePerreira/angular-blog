@@ -16,6 +16,15 @@ homeControllerModule.controller('homeController', ['$scope', '$http', 'apiServic
       $scope.tags = data;
     });
 
+  $scope.getTagName = function(id){
+    var ret = ''
+    for (i=0; i<$scope.tags.length; i++){
+      if(id==$scope.tags[i].id)
+        ret = $scope.tags[i].name;
+    }
+    return ret;
+  }
+
   $scope.blah = [
     {
       "content": "Run biting sagittis elit cras nec vestibulum, tempus lick sleep on your keyboard stuck in a tree suscipit. Vestibulum judging you sleep in the sink eat the grass non non, zzz amet pellentesque tincidunt a. Iaculis purr rutrum claw faucibus sniff, nibh quis nunc feed me suspendisse vehicula toss the mousie. Sleep in the sink justo vestibulum ac hairball, tail flick jump eat faucibus enim ut purr iaculis. Zzz give me fish stuck in a tree jump on the table, in viverra rhoncus scratched sleep in the sink hiss stuck in a tree pharetra. Rutrum bat nam orci turpis sniff suspendisse, nibh rutrum nunc sagittis run orci turpis. Bat purr fluffy fur libero, attack lick adipiscing catnip sleep in the sink nunc.",
